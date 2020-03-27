@@ -1,6 +1,7 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
 import IControllerBase from '../../interfaces/IControllerBase.interface';
+import NotFoundException from '../../exceptions/NotFoundError';
 
 class HomeController implements IControllerBase {
   public path = '/';
@@ -12,10 +13,19 @@ class HomeController implements IControllerBase {
 
   public initRoutes() {
     this.router.get('/', this.index);
+    this.router.get('/admin', this.adminPage);
   }
 
-  index = (req: Request, res: Response) => {
+  private index = (req: Request, res: Response) => {
     res.send('Hello World');
+  };
+
+  private adminPage = (
+    req: Request,
+    res: Response,
+    next: express.NextFunction,
+  ) => {
+    next(new NotFoundException(res));
   };
 }
 
