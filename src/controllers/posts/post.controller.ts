@@ -1,6 +1,7 @@
 import * as express from 'express';
-import Post from './post.interface';
+import Post from '../../models/posts/post.interface';
 
+// Post Contents Contoller
 class PostsController {
   public path = '/posts';
   public router = express.Router();

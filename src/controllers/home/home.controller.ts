@@ -4,6 +4,7 @@ import IControllerBase from '../../interfaces/IControllerBase.interface';
 import NotFoundException from '../../exceptions/NotFoundError';
 import errorHandler from '../../utils/dbErrorHandler';
 
+// Default Home Directory Path Controller
 class HomeController implements IControllerBase {
   public path = '/';
   public router = express.Router();
@@ -24,6 +25,7 @@ class HomeController implements IControllerBase {
     res.send('Hello World');
   };
 
+  // Error Handler Test
   private notFound = (
     req: Request,
     res: Response,
@@ -32,6 +34,7 @@ class HomeController implements IControllerBase {
     next(new NotFoundException(res));
   };
 
+  // Error Handler Test
   private dbError = (
     req: Request,
     res: Response,
