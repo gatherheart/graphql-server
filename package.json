@@ -1,11 +1,11 @@
 {
-  "name": "node_test_project",
+  "name": "forestin",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "dev": "ts-node ./lib/app.ts",
+    "dev": "ts-node ./src/server.ts",
     "start": "nodemon ./dist/server.js",
     "prod": "npm run build && npm run start"
   },
@@ -14,6 +14,8 @@
   "description": "",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "envalid": "^6.0.1",
     "express": "^4.17.1",
     "mongoose": "^5.9.6",
     "nodemon": "^2.0.2"
@@ -24,6 +26,7 @@
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
     "eslint": "^6.8.0",
-    "tslint": "^6.1.0"
+    "tslint": "^6.1.0",
+    "typescript": "^3.8.3"
   }
 }
