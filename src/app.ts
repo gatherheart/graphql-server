@@ -8,12 +8,12 @@ class App {
   public port: number;
 
   constructor(appInit: { port: number; middleWares: any; controllers: any }) {
-    this.app = express();
-    this.port = appInit.port;
-    this.connectToTheDatabase();
-    this.middlewares(appInit.middleWares);
-    this.routes(appInit.controllers);
-    this.assets();
+    //this.app = express();
+    //this.port = appInit.port;
+    //this.connectToTheDatabase();
+    //this.middlewares(appInit.middleWares);
+    //this.routes(appInit.controllers);
+    //this.assets();
   }
 
   // middlewares for check id or logging
@@ -23,7 +23,7 @@ class App {
     // that takes middleware as a param and returns void
     forEach: (arg0: (middleWare: any) => void) => void;
   }) {
-    middleWares.forEach(middleWare => {
+    middleWares.forEach((middleWare) => {
       this.app.use(middleWare);
     });
   }
@@ -32,7 +32,7 @@ class App {
   private routes(controllers: {
     forEach: (arg0: (controller: any) => void) => void;
   }) {
-    controllers.forEach(controller => {
+    controllers.forEach((controller) => {
       this.app.use(controller.router);
     });
   }
@@ -53,7 +53,7 @@ class App {
         useNewUrlParser: true,
       })
       .then(() => console.log(`${MONGO_PATH} MongoDB Connected`))
-      .catch(err => {
+      .catch((err) => {
         console.log(`DB Connection Error: ${err.message}`);
       });
   }

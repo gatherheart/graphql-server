@@ -1,5 +1,8 @@
 import * as express from 'express';
 import Post from '../../models/posts/post.interface';
+import postModel from '../../models/posts/post.model';
+import * as mongoose from 'mongoose';
+import dbErrorHandler from '../../utils/dbErrorHandler';
 
 // Post Contents Contoller
 class PostsController {
@@ -14,16 +17,33 @@ class PostsController {
 
   public initializeRoutes() {
     this.router.get(this.path, this.getAllPosts);
+    this.router.post(this.path, this.createAPost);
   }
 
   getAllPosts = (req: express.Request, res: express.Response) => {
-    res.send(this.posts);
+    postModel
+      .find()
+      .then(posts => {
+        res.send(posts);
+      })
+      .catch(err =>
+        res.status(400).json({ error: dbErrorHandler.getErrorMessage(err) }),
+      );
   };
 
-  createAPost = (request: express.Request, response: express.Response) => {
-    const post: Post = request.body;
-    this.posts.push(post);
-    response.send(post);
+  createAPost = (req: express.Request, res: express.Response) => {
+    const postData: Post = req.body;
+    const createdPost: mongoose.Model<Post & mongoose.Document> = new postModel(
+      postData,
+    );
+    createdPost
+      .save()
+      .then(savedPost => {
+        res.send(savedPost);
+      })
+      .catch(err =>
+        res.status(400).json({ error: dbErrorHandler.getErrorMessage(err) }),
+      );
   };
 }
 
