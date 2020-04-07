@@ -1,0 +1,28 @@
+version: '3'
+services:
+  prisma:
+    extra_hosts:
+      dockerhost: '172.17.0.1'
+    image: prismagraphql/prisma:1.34
+    restart: always
+    network_mode: host
+    ports:
+      - '4466:4466'
+    environment:
+      PRISMA_CONFIG: |
+        port: 4466
+        # uncomment the next line and provide the env var PRISMA_MANAGEMENT_API_SECRET=my-secret to activate cluster security
+        # managementApiSecret: my-secret
+        databases:
+          default:
+            connector: postgres
+            host: localhost
+            database: forest
+            schema: public
+            user: admin
+            password: together2019
+            
+            ssl: true 
+            rawAccess: true
+            port: '5432'
+            migrations: true
