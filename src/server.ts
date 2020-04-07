@@ -8,6 +8,7 @@ import HomeController from './controllers/home/home.controller';
 import validateEnv from './utils/validateEnv';
 import { GraphQLServer } from 'graphql-yoga';
 import * as logger from 'morgan';
+import schema from './schema';
 
 validateEnv();
 
@@ -26,7 +27,7 @@ const resolvers = {
 };
 
 const app = new App(
-  { typeDefs, resolvers },
+  { schema },
   {
     port: parseInt(process.env.PORT) || 80,
     controllers: [new PostController()],

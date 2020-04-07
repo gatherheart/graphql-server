@@ -21,14 +21,7 @@ class PostsController {
   }
 
   getAllPosts = (req: express.Request, res: express.Response) => {
-    postModel
-      .find()
-      .then(posts => {
-        res.send(posts);
-      })
-      .catch(err =>
-        res.status(400).json({ error: dbErrorHandler.getErrorMessage(err) }),
-      );
+    res.send({ status: 'On' });
   };
 
   createAPost = (req: express.Request, res: express.Response) => {
@@ -38,10 +31,10 @@ class PostsController {
     );
     createdPost
       .save()
-      .then(savedPost => {
+      .then((savedPost) => {
         res.send(savedPost);
       })
-      .catch(err =>
+      .catch((err) =>
         res.status(400).json({ error: dbErrorHandler.getErrorMessage(err) }),
       );
   };
