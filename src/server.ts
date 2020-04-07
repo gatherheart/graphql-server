@@ -7,6 +7,7 @@ import PostController from './controllers/posts/post.controller';
 import HomeController from './controllers/home/home.controller';
 import validateEnv from './utils/validateEnv';
 import { GraphQLServer } from 'graphql-yoga';
+import * as logger from 'morgan';
 
 validateEnv();
 
@@ -24,20 +25,17 @@ const resolvers = {
   },
 };
 
-const app = new App({
-  port: parseInt(process.env.PORT) || 80,
-  controllers: [new HomeController(), new PostController()],
-  middleWares: [
-    bodyParser.json(),
-    bodyParser.urlencoded({ extended: true }),
-    loggerMiddleware,
-  ],
-});
-
-//app.listen();
-
-const server = new GraphQLServer({ typeDefs, resolvers });
-
-server.start({ port: PORT }, () =>
-  console.log(`Server running on  http://localhost:${PORT}`),
+const app = new App(
+  { typeDefs, resolvers },
+  {
+    port: parseInt(process.env.PORT) || 80,
+    controllers: [new PostController()],
+    middleWares: [
+      logger('dev'),
+      bodyParser.json(),
+      bodyParser.urlencoded({ extended: true }),
+    ],
+  },
 );
+
+app.listen();

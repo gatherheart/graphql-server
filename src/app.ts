@@ -2,22 +2,27 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 import 'dotenv/config';
 import { throws } from 'assert';
+import { GraphQLServer } from 'graphql-yoga';
 
-class App {
+class App extends GraphQLServer {
   public app: express.Application;
   public port: number;
 
-  constructor(appInit: { port: number; middleWares: any; controllers: any }) {
-    //this.app = express();
-    //this.port = appInit.port;
-    //this.connectToTheDatabase();
-    //this.middlewares(appInit.middleWares);
-    //this.routes(appInit.controllers);
-    //this.assets();
+  constructor(
+    props,
+    appInit: { port: number; middleWares: any; controllers: any },
+  ) {
+    super(props);
+    this.app = this.express;
+    this.port = appInit.port;
+
+    this.setMiddlewares(appInit.middleWares);
+    this.setRoutes(appInit.controllers);
+    this.setAssets();
   }
 
   // middlewares for check id or logging
-  private middlewares(middleWares: {
+  private setMiddlewares(middleWares: {
     // parameter is foreach object
     // that takes first arg as a function
     // that takes middleware as a param and returns void
@@ -29,7 +34,7 @@ class App {
   }
 
   // contollers handling request and sending response
-  private routes(controllers: {
+  private setRoutes(controllers: {
     forEach: (arg0: (controller: any) => void) => void;
   }) {
     controllers.forEach((controller) => {
@@ -37,7 +42,7 @@ class App {
     });
   }
 
-  private assets() {
+  private setAssets() {
     // Static files like image and scripts files
     this.app.use(express.static('public'));
     // Static HTTP template
@@ -59,9 +64,9 @@ class App {
   }
 
   public listen() {
-    this.app.listen(this.port, () => {
-      console.log(`App listening on the ${this.port}`);
-    });
+    this.start({ port: this.port }, () =>
+      console.log(`Server running on  http://localhost:${this.port}`),
+    );
   }
 }
 
