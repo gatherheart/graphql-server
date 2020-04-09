@@ -7,7 +7,9 @@
     "build": "tsc",
     "dev": "ts-node src/server.ts",
     "start": "nodemon ./dist/server.js",
-    "prod": "yarn run build && yarn run start"
+    "prod": "yarn run build && yarn run start",
+    "deploy": "prisma deploy",
+    "prisma": "yarn deploy && prisma generate"
   },
   "author": "",
   "license": "ISC",

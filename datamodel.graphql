@@ -4,33 +4,49 @@ type User {
   email: String! @unique
   bio: String
   phone: String
-  groups: [Group!]! @relation(name: "User2GroupRelation")
-  followings: [Group!]! @relation(name: "User2GroupRelation")
+  groups: [Group!]! @relation(type: INLINE, name: "JoinedGroupRelation")
+  followings: [Group!]! @relation(type: INLINE, name: "FollwingGroupRelation")
   posts: [Post!]!
   postsCount: Int!
   likes: [Like!]!
   comments: [Comment!]!
   rooms: [Room!]!
-  createdAt: String
+  createdAt: DateTime! @createdAt
   updateAt: String
 }
 
 type Post {
-  id: ID!
+  id: ID! @id
   location: String
   caption: String!
   author: User!
-  group: Group! @relation(name: "Group2GroupRelation")
+  group: Group!
   files: [File!]!
   likes: [Like!]!
   comments: [Comment!]!
   isLiked: Boolean!
   likeCount: Int!
   commentCount: Int!
-  createAt: String
+  createAt: DateTime! @createdAt
   updateAt: String
 }
 
 type Like {
-  id: ID
+  id: ID! @id
+}
+
+type Group {
+  id: ID! @id
+}
+
+type File {
+  id: ID! @id
+}
+
+type Comment {
+  id: ID! @id
+}
+
+type Room {
+  id: ID! @id
 }
