@@ -6,9 +6,10 @@
     "sourceMap": true,
     "target": "es6",
     "outDir": "./dist",
-    "baseUrl": "./lib",
-    "lib": ["esnext"]
+    "baseUrl": "./src",
+    "lib": ["es6", "dom", "esnext.asynciterable"],
+    "esModuleInterop": true
   },
-  "include": ["lib/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }

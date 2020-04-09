@@ -1,0 +1,36 @@
+type User {
+  id: ID! @id
+  username: String! @unique
+  email: String! @unique
+  bio: String
+  phone: String
+  groups: [Group!]! @relation(name: "User2GroupRelation")
+  followings: [Group!]! @relation(name: "User2GroupRelation")
+  posts: [Post!]!
+  postsCount: Int!
+  likes: [Like!]!
+  comments: [Comment!]!
+  rooms: [Room!]!
+  createdAt: String
+  updateAt: String
+}
+
+type Post {
+  id: ID!
+  location: String
+  caption: String!
+  author: User!
+  group: Group! @relation(name: "Group2GroupRelation")
+  files: [File!]!
+  likes: [Like!]!
+  comments: [Comment!]!
+  isLiked: Boolean!
+  likeCount: Int!
+  commentCount: Int!
+  createAt: String
+  updateAt: String
+}
+
+type Like {
+  id: ID
+}

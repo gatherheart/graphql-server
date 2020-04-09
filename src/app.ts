@@ -1,7 +1,5 @@
 import * as express from 'express';
-import * as mongoose from 'mongoose';
 import 'dotenv/config';
-import { throws } from 'assert';
 import { GraphQLServer } from 'graphql-yoga';
 
 class App extends GraphQLServer {
@@ -28,7 +26,7 @@ class App extends GraphQLServer {
     // that takes middleware as a param and returns void
     forEach: (arg0: (middleWare: any) => void) => void;
   }) {
-    middleWares.forEach((middleWare) => {
+    middleWares.forEach(middleWare => {
       this.app.use(middleWare);
     });
   }
@@ -37,7 +35,7 @@ class App extends GraphQLServer {
   private setRoutes(controllers: {
     forEach: (arg0: (controller: any) => void) => void;
   }) {
-    controllers.forEach((controller) => {
+    controllers.forEach(controller => {
       this.app.use(controller.router);
     });
   }
@@ -47,20 +45,6 @@ class App extends GraphQLServer {
     this.app.use(express.static('public'));
     // Static HTTP template
     this.app.use(express.static('views'));
-  }
-
-  private connectToTheDatabase() {
-    const { MONGO_USER, MONGO_PASSWORD, MONGO_PATH } = process.env;
-
-    mongoose
-      .connect(`mongodb://${MONGO_PATH}`, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-      })
-      .then(() => console.log(`${MONGO_PATH} MongoDB Connected`))
-      .catch((err) => {
-        console.log(`DB Connection Error: ${err.message}`);
-      });
   }
 
   public listen() {
