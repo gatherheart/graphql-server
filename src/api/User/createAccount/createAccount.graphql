@@ -1,0 +1,14 @@
+type Mutation {
+  createAccount(
+    username: String!
+    email: String!
+    bio: String
+    phone: String
+  ): User!
+}
+
+# Dummy Query
+# Defining only Mutation causes error
+type Query {
+  dummy: String
+}
