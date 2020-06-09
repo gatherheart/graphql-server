@@ -1,6 +1,5 @@
-import * as express from 'express';
-import 'dotenv/config';
 import { GraphQLServer } from 'graphql-yoga';
+import * as express from 'express';
 
 class App extends GraphQLServer {
   public app: express.Application;
@@ -8,7 +7,7 @@ class App extends GraphQLServer {
 
   constructor(
     props,
-    appInit: { port: number; middleWares: any; controllers: any },
+    appInit: { port: number; middleWares: any; controllers: any; },
   ) {
     super(props);
     this.app = this.express;
@@ -18,7 +17,6 @@ class App extends GraphQLServer {
     this.setRoutes(appInit.controllers);
     this.setAssets();
   }
-
   // middlewares for check id or logging
   private setMiddlewares(middleWares: {
     // parameter is foreach object

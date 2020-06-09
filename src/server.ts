@@ -1,9 +1,10 @@
 import App from './app';
 import loggerMiddleware from './middleware/logger';
-import validateEnv from './utils/validateEnv';
 import schema from './schema';
+import 'dotenv/config';
+import { uploadMiddleware, uploadController } from "./utils/upload";
 
-validateEnv();
+//validateEnv();
 
 const PORT = process.env.PORT || 4000;
 
@@ -16,4 +17,6 @@ const app = new App(
   },
 );
 
+// REST 
+app.express.post("/api/upload", uploadMiddleware, uploadController);
 app.listen();
