@@ -20,7 +20,7 @@
     "copyfiles": "^2.3.0",
     "dotenv": "^8.2.0",
     "envalid": "^6.0.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "global": "^4.4.0",
     "gql-merge": "^0.0.6",
     "graphql-tools": "^4.0.7",
